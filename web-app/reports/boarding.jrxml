@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="trip" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="75"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="trip_id" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["<parameter error>"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     ticket.`id` AS ticket_id,
+     trip.`t_date` AS trip_t_date,
+     trip.`t_fr` AS trip_t_fr,
+     ferry.`f_name` AS ferry_f_name,
+     pax.`p_name` AS pax_p_name,
+     car.`plt_no` AS car_plt_no,
+     pax.`p_id` AS pax_p_id
+FROM
+     `trip` trip INNER JOIN `ticket` ticket ON trip.`id` = ticket.`trip_id`
+     INNER JOIN `ferry` ferry ON trip.`ferry_id` = ferry.`id`
+     INNER JOIN `pax` pax ON ticket.`pax_id` = pax.`id`
+     LEFT OUTER JOIN `car` car ON ticket.`car_id` = car.`id`
+WHERE
+     ticket.trip_id = $P{trip_id}
+ AND ticket.board = "Y"]]>
+	</queryString>
+	<field name="ticket_id" class="java.lang.Long"/>
+	<field name="trip_t_date" class="java.sql.Timestamp"/>
+	<field name="trip_t_fr" class="java.lang.String"/>
+	<field name="ferry_f_name" class="java.lang.String"/>
+	<field name="pax_p_name" class="java.lang.String"/>
+	<field name="car_plt_no" class="java.lang.String"/>
+	<field name="pax_p_id" class="java.lang.String"/>
+	<variable name="pax_p_id_1" class="java.lang.Integer" calculation="Count">
+		<variableExpression><![CDATA[$F{pax_p_id}]]></variableExpression>
+	</variable>
+	<variable name="car_plt_no_1" class="java.lang.Integer" calculation="Count">
+		<variableExpression><![CDATA[$F{car_plt_no}]]></variableExpression>
+	</variable>
+	<title>
+		<band height="134" splitType="Stretch">
+			<textField>
+				<reportElement x="395" y="22" width="88" height="20"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" pdfEncoding="Cp1256" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ferry_f_name}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="483" y="22" width="62" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[اسم العبارة:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="286" y="22" width="59" height="20"/>
+				<textElement>
+					<font fontName="Arial" pdfEncoding="Cp1256" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{trip_t_fr}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="345" y="22" width="26" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[من:]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy HH.mm.ss">
+				<reportElement x="383" y="62" width="100" height="20"/>
+				<textElement>
+					<font fontName="Arial" pdfEncoding="Cp1256" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{trip_t_date}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="483" y="62" width="62" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[التاريخ:]]></text>
+			</staticText>
+			<textField evaluationTime="Report">
+				<reportElement x="383" y="106" width="100" height="20"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" pdfEncoding="Cp1256" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{pax_p_id_1}]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="171" y="106" width="100" height="20"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" pdfEncoding="Cp1256" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{car_plt_no_1}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="483" y="106" width="62" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[عدد الركاب:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="271" y="106" width="74" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[عدد السيارت:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="217" y="22" width="38" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" pdfEncoding="Cp1256" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[الى:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="164" y="22" width="50" height="20">
+					<printWhenExpression><![CDATA[( $F{trip_t_fr}=="فرسان" ? Boolean.TRUE : Boolean.FALSE )]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" pdfEncoding="Cp1256" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[جازان]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="164" y="22" width="50" height="20">
+					<printWhenExpression><![CDATA[( $F{trip_t_fr}=="جازان" ? Boolean.TRUE : Boolean.FALSE )]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" pdfEncoding="Cp1256" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[فرسان]]></text>
+			</staticText>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="36" splitType="Stretch">
+			<staticText>
+				<reportElement x="417" y="11" width="100" height="20"/>
+				<textElement>
+					<font fontName="Arial" pdfEncoding="Cp1256" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[رقم الحجز]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="305" y="11" width="100" height="20"/>
+				<textElement>
+					<font fontName="Arial" pdfEncoding="Cp1256" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[اسم الركب]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="186" y="11" width="100" height="20"/>
+				<textElement>
+					<font fontName="Arial" pdfEncoding="Cp1256" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[رقم الهوية]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="64" y="11" width="100" height="20"/>
+				<textElement>
+					<font fontName="Arial" pdfEncoding="Cp1256" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[رقم اللوحة]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="33" splitType="Stretch">
+			<textField>
+				<reportElement x="417" y="11" width="100" height="20"/>
+				<textElement>
+					<font fontName="Arial" pdfEncoding="Cp1256" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ticket_id}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="305" y="11" width="100" height="20"/>
+				<textElement>
+					<font fontName="Arial" pdfEncoding="Cp1256" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{pax_p_name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="186" y="11" width="100" height="20"/>
+				<textElement>
+					<font fontName="Arial" pdfEncoding="Cp1256" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{pax_p_id}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="64" y="11" width="100" height="20"/>
+				<textElement>
+					<font fontName="Arial" pdfEncoding="Cp1256" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{car_plt_no}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

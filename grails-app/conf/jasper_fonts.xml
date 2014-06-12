@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<fontFamilies>
+    <fontFamily name="Arial">
+        <normal>c:\windows\fonts\Arial.ttf</normal>
+        <bold>c:\windows\fonts\arialbd.ttf</bold>
+        <italic>c:\windows\fonts\ariali.ttf</italic>
+        <boldItalic>c:\windows\fonts\arialbi.ttf</boldItalic>
+        <pdfEncoding>Identity-H</pdfEncoding>
+        <pdfEmbedded>true</pdfEmbedded>
+        <exportFonts>
+            <export key="net.sf.jasperreports.html">Arial, Helvetica, sans-serif</export>
+            <export key="net.sf.jasperreports.xhtml">Arial, Helvetica, sans-serif</export>
+        </exportFonts>
+    </fontFamily>
+</fontFamilies>
+<!--
+<fontFamilies>
+    <fontFamily name="Arial">
+        <normal>lib/fonts/Arial/arial.ttf</normal>
+        <bold>lib/fonts/Arial/arialbd.ttf</bold>
+        <italic>lib/fonts/Arial/ariali.ttf</italic>
+        <boldItalic>lib/fonts/Arial/arialbi.ttf</boldItalic>
+        <pdfEncoding>Identity-H</pdfEncoding>
+        <pdfEmbedded>true</pdfEmbedded>
+        <exportFonts>
+            <export key="net.sf.jasperreports.html">'Arial', Helvetica, sans-serif</export>
+            <export key="net.sf.jasperreports.xhtml">'Arial', Helvetica, sans-serif</export>
+        </exportFonts>
+    </fontFamily>
+</fontFamilies>
+-->

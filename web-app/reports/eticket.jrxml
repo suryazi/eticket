@@ -1,0 +1,339 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="eticket" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="85"/>
+	<parameter name="ticket_id" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["<parameter error>"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     ticket.`id` AS ticket_id,
+     pax.`nat` AS pax_nat,
+     pax.`p_name` AS pax_p_name,
+     pax.`sex` AS pax_sex,
+     pax.`p_id` AS pax_p_id,
+     car.`plt_no` AS car_plt_no,
+     car.`typ` AS car_typ,
+     trip.`ferry_id` AS trip_ferry_id,
+     trip.`t_date` AS trip_t_date,
+     trip.`t_fr` AS trip_t_fr,
+     ferry.`f_name` AS ferry_f_name,
+     ticket.`t_class` AS ticket_t_class,
+     ticket.`rem` AS ticket_rem
+FROM
+     `pax` pax INNER JOIN `ticket` ticket ON pax.`id` = ticket.`pax_id`
+     LEFT OUTER JOIN `car` car ON ticket.`car_id` = car.`id`
+     INNER JOIN `trip` trip ON ticket.`trip_id` = trip.`id`
+     INNER JOIN `ferry` ferry ON trip.`ferry_id` = ferry.`id`
+WHERE
+     ticket.id = $P{ticket_id}]]>
+	</queryString>
+	<field name="ticket_id" class="java.lang.Long"/>
+	<field name="pax_nat" class="java.lang.String"/>
+	<field name="pax_p_name" class="java.lang.String"/>
+	<field name="pax_sex" class="java.lang.String"/>
+	<field name="pax_p_id" class="java.lang.String"/>
+	<field name="car_plt_no" class="java.lang.String"/>
+	<field name="car_typ" class="java.lang.String"/>
+	<field name="trip_ferry_id" class="java.lang.Long"/>
+	<field name="trip_t_date" class="java.sql.Timestamp"/>
+	<field name="trip_t_fr" class="java.lang.String"/>
+	<field name="ferry_f_name" class="java.lang.String"/>
+	<field name="ticket_t_class" class="java.lang.String"/>
+	<field name="ticket_rem" class="java.lang.String"/>
+	<detail>
+		<band height="715" splitType="Stretch">
+			<staticText>
+				<reportElement x="458" y="161" width="62" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="10" pdfEncoding="Cp1256" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[رقم التذكرة :]]></text>
+			</staticText>
+			<componentElement>
+				<reportElement x="267" y="161" width="191" height="50"/>
+				<jr:barbecue xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" type="2of7" drawText="true" checksumRequired="false">
+					<jr:codeExpression><![CDATA[$F{ticket_id}]]></jr:codeExpression>
+				</jr:barbecue>
+			</componentElement>
+			<textField>
+				<reportElement x="131" y="161" width="80" height="20"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{pax_p_id}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="458" y="218" width="62" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="10" pdfEncoding="Cp1256" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[اسم الركب:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="318" y="218" width="129" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" pdfEncoding="Cp1256" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{pax_p_name}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="131" y="218" width="53" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="10" pdfEncoding="Cp1256" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[الجنسية:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="19" y="218" width="100" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" pdfEncoding="Cp1256" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{pax_nat}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="267" y="218" width="40" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="10" pdfEncoding="Cp1256" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[الجنس:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="196" y="218" width="71" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" pdfEncoding="Cp1256" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{pax_sex}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="458" y="255" width="62" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="10" pdfEncoding="Cp1256" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[العبارة:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="358" y="255" width="100" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" pdfEncoding="Cp1256" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ferry_f_name}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="335" y="255" width="23" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="10" pdfEncoding="Cp1256" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[من:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="236" y="255" width="100" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" pdfEncoding="Cp1256" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{trip_t_fr}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="146" y="255" width="50" height="20">
+					<printWhenExpression><![CDATA[( $F{trip_t_fr}=="فرسان" ? Boolean.TRUE : Boolean.FALSE )]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" pdfEncoding="Cp1256" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[جازان]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="196" y="255" width="40" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="10" pdfEncoding="Cp1256" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[الى:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="147" y="255" width="50" height="20">
+					<printWhenExpression><![CDATA[( $F{trip_t_fr} =="جازان" ? Boolean.TRUE : Boolean.FALSE )]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="10" pdfEncoding="Cp1256" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[فرسان]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="93" y="255" width="38" height="20"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial" size="10" pdfEncoding="Cp1256" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[درجة:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="19" y="255" width="74" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" pdfEncoding="Cp1256" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ticket_t_class}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="458" y="295" width="62" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" pdfEncoding="Cp1256" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[التاريخ:]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy HH.mm.ss">
+				<reportElement x="349" y="295" width="109" height="20"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{trip_t_date}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="297" y="295" width="52" height="20">
+					<printWhenExpression><![CDATA[( $F{car_plt_no}.length()> 0 ? Boolean.TRUE : Boolean.FALSE )]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" pdfEncoding="Cp1256" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[رقم اللوحـة:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="197" y="295" width="100" height="20">
+					<printWhenExpression><![CDATA[( $F{car_plt_no}.length()> 0 ? Boolean.TRUE : Boolean.FALSE )]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" pdfEncoding="Cp1256" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{car_plt_no}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="131" y="295" width="61" height="20">
+					<printWhenExpression><![CDATA[( $F{car_plt_no}.length()> 0 ? Boolean.TRUE : Boolean.FALSE )]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" pdfEncoding="Cp1256" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[نوع السيارة:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="31" y="295" width="100" height="20">
+					<printWhenExpression><![CDATA[( $F{car_plt_no}.length()> 0 ? Boolean.TRUE : Boolean.FALSE )]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" pdfEncoding="Cp1256" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{car_typ}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="211" y="161" width="48" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" pdfEncoding="Cp1256" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[رقم الهوية:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="93" y="161" width="38" height="20">
+					<printWhenExpression><![CDATA[( $F{ticket_rem}.length()> 0 ? Boolean.TRUE : Boolean.FALSE )]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right">
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[ملاحظة:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="19" y="161" width="74" height="20">
+					<printWhenExpression><![CDATA[( $F{ticket_rem}.length()> 0 ? Boolean.TRUE : Boolean.FALSE )]]></printWhenExpression>
+				</reportElement>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{ticket_rem}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="19" y="439" width="528" height="20"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="14" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[تعليمات هامة للركاب]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="19" y="473" width="528" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[1.      يجب على جميع الركاب الحصول على حجز مسبق من مكان الحجز بجازان وفرسان قبل موعد الرحلة بوقت كافي.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="19" y="493" width="528" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[2.      حجوزات السيارات الخاصة والشاحنات قبل الرحلة بيومين.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="19" y="513" width="528" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[3.      يجب على جميع الركاب احضار اصل الهوية عند الحجز والمقيمين جواز السفر او الاقامة واحضار اصل الاستمارة للسيارات الخاصة اوالشاحنات.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="19" y="533" width="528" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[4.      يمنع منعا باتا حمل الامتعة الخطيرة على متن العبارة بما فيها ( اسطوانات الغاز – البنزين – الاعلاف الجافة – المتفجرات –]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="19" y="553" width="501" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[المواد القابلة للاشتعال المواد المؤكسدة والمسببة للتأكل – البطاريات السائلة – الحيوانات ) ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="19" y="573" width="528" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[5.      الحضور قبل مغادرة العبارة وقبل اغلاق بوابة الميناء بساعة.  ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="19" y="593" width="528" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[6.      على جميع الشاحنات التقيد بالحمولات المسموح بها على متن العبارة حسب الاتي:  ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="19" y="613" width="501" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[* العبارة ( جازان – فرسان )       الحمولة المسموح بها 7 طن كحد اقصى  ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="19" y="633" width="501" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[* العبارة ( فارس1 )                 الحمولة المسموح بها 3 طن كحد اقصى  ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="19" y="653" width="528" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[7.      التقيد بالتعليمات الامنية على ظهر العبارة وخارجها.  ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="19" y="684" width="528" height="20"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="14" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[متمنين لكم سفرا سعيدا وعودا حميدا]]></text>
+			</staticText>
+			<image>
+				<reportElement x="236" y="36" width="200" height="97"/>
+				<imageExpression><![CDATA["C:\\Documents and Settings\\Administrator\\My Documents\\NetBeansProjects\\eticket\\web-app\\images\\MoT.JPG"]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="211" y="340" width="202" height="50"/>
+				<imageExpression><![CDATA["C:\\Documents and Settings\\Administrator\\My Documents\\NetBeansProjects\\eticket\\web-app\\images\\logo.JPG"]]></imageExpression>
+			</image>
+		</band>
+	</detail>
+</jasperReport>

@@ -1,0 +1,13 @@
+Testsuite: com.maritimeco.UserIntegrationTests
+Tests run: 2, Failures: 0, Errors: 0, Time elapsed: 2.187 sec
+------------- Standard Output ---------------
+--Output from testFirstSaveEver--
+--Output from testSomething--
+------------- ---------------- ---------------
+------------- Standard Error -----------------
+--Output from testFirstSaveEver--
+--Output from testSomething--
+------------- ---------------- ---------------
+
+Testcase: testFirstSaveEver took 2.157 sec
+Testcase: testSomething took 0.015 sec
